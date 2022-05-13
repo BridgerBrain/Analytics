@@ -141,8 +141,7 @@ def get_issues(my_jira, max_res):
             if issue_fields['customfield_10030'] is not None and issue_fields['customfield_10030']['name'] == 'Time to first response':
                 if len(issue_fields['customfield_10030']['completedCycles']) > 0:
 
-                    temp_start_response_time = issue_fields['customfield_10030']['completedCycles'][0]['startTime'][
-                        'iso8601']
+                    temp_start_response_time = issue_fields['customfield_10030']['completedCycles'][0]['startTime']['iso8601']
                     temp_start_response_time = temp_start_response_time[:10] + ' ' + temp_start_response_time[11:19]
                     temp_start_response_time = datetime.datetime.strptime(temp_start_response_time, '%Y-%m-%d %H:%M:%S')
 
@@ -180,6 +179,13 @@ def get_issues(my_jira, max_res):
             else:
                 temp_rating = None
 
+            if issue_fields['customfield_10028'] is not None:
+                temp_rating_date = issue_fields['customfield_10028']
+                temp_rating_date = temp_rating_date[:10] + ' ' + temp_rating_date[11:19]
+                temp_rating_date = datetime.datetime.strptime(temp_rating_date, '%Y-%m-%d %H:%M:%S')
+            else:
+                temp_rating_date = None
+
             # Save issues information to a list, then to a dataframe and save the table as a .csv file
             proj_issues.append([temp_key, temp_status, temp_merchant_name, temp_summary,
                                 temp_issue_links, temp_merchant_type, temp_request_type, temp_issue_type,
@@ -190,7 +196,7 @@ def get_issues(my_jira, max_res):
                                 temp_created,
                                 temp_start_response_time, temp_end_response_time,
                                 check_datetime_created, check_datetime_responded,
-                                temp_rating])
+                                temp_rating, temp_rating_date])
 
             proj_issues_df = pd.DataFrame(proj_issues,
                                           columns=['key', 'status', 'merchant_name', 'summary',
@@ -202,6 +208,6 @@ def get_issues(my_jira, max_res):
                                                    'created_full_date',
                                                    'start_response_full_date', 'end_response_full_date',
                                                    'next_working_created', 'next_working_responded',
-                                                   'customer satisfaction rating'])
+                                                   'customer satisfaction rating', 'customer satisfaction rating date'])
 
     return proj_issues_df
