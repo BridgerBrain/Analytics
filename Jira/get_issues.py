@@ -175,7 +175,12 @@ def get_issues(my_jira, max_res):
             else:
                 check_datetime_responded = None
 
-            # Save issues information to a list and then to a dataframe
+            if issue_fields['customfield_10027'] is not None:
+                temp_rating = issue_fields['customfield_10027']['rating']
+            else:
+                temp_rating = None
+
+            # Save issues information to a list, then to a dataframe and save the table as a .csv file
             proj_issues.append([temp_key, temp_status, temp_merchant_name, temp_summary,
                                 temp_issue_links, temp_merchant_type, temp_request_type, temp_issue_type,
                                 temp_components, temp_tier, temp_impact, temp_reporter,
@@ -184,7 +189,8 @@ def get_issues(my_jira, max_res):
                                 temp_resolution_name, temp_resolution_date,
                                 temp_created,
                                 temp_start_response_time, temp_end_response_time,
-                                check_datetime_created, check_datetime_responded])
+                                check_datetime_created, check_datetime_responded,
+                                temp_rating])
 
             proj_issues_df = pd.DataFrame(proj_issues,
                                           columns=['key', 'status', 'merchant_name', 'summary',
@@ -195,6 +201,7 @@ def get_issues(my_jira, max_res):
                                                    'resolution', 'resolution_datetime',
                                                    'created_full_date',
                                                    'start_response_full_date', 'end_response_full_date',
-                                                   'next_working_created', 'next_working_responded'])
+                                                   'next_working_created', 'next_working_responded',
+                                                   'customer satisfaction rating'])
 
     return proj_issues_df
