@@ -16,9 +16,5 @@ def create_linkedin_analytics(data):
     data.columns = ['clicks', 'Cost_USD', 'impressions', 'adset_id', 'adset_name',
                     'campaign_id', 'Channel_Type', 'campaign_name', 'Conversions',
                     'ad_id', 'date', 'Marketing_Source', 'ad_name']
-
-    data.to_csv('LinkedIn_Analytics.csv', index=False)
-
+    
     return data
-
-
