@@ -8,6 +8,7 @@ from get_linkedin_variables import get_linkedin_variables
 from get_linkedin_historical_metrics_data import get_linkedin_historical_metrics_data
 from get_linkedin_day_before_data import get_linkedin_day_before_data
 from get_linkedin_today_data import get_linkedin_today_data
+from create_data_for_powerbi import create_linkedin_analytics
 
 # Set starting running date
 starting_timestamp = datetime.now()
@@ -67,6 +68,9 @@ camp_groups_metrics, camps_metrics, ads_metrics = get_linkedin_today_data(camp_g
 linkedin_data = run_concatenate(campaign_groups_df, camp_groups_metrics,
                                 campaigns_df, camps_metrics,
                                 ads_df, ads_metrics)
+
+# Create a dataset with the same features as other marketing datasets
+linkedin_data = create_linkedin_analytics(linkedin_data)
 
 # Set ending running date
 ending_timestamp = datetime.now()
