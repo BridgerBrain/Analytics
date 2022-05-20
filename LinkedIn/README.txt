@@ -28,6 +28,8 @@ main.py - The main file to run LinkedIn files and create the dataset.
 
 main_aux_run.py - An auxiliary main file whichis used to access information about Campaign Groups, Campaigns and Ads.
 
+create_data_for_powerbi.py - A file which is used to create a dataset with the same features as other marketing datasets
+
 linkedin_datatype.xlsx - A file which describes the datatype of each column of the dataset.
 
 requirements.txt - A file which contains the libraries that are used for the project.
