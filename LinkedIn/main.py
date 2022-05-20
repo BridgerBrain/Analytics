@@ -69,9 +69,6 @@ linkedin_data = run_concatenate(campaign_groups_df, camp_groups_metrics,
                                 campaigns_df, camps_metrics,
                                 ads_df, ads_metrics)
 
-# Create a dataset with the same features as other marketing datasets
-linkedin_data = create_linkedin_analytics(linkedin_data)
-
 # Set ending running date
 ending_timestamp = datetime.now()
 # print('ENDING DATETIME: ', ending_timestamp, '\n')
